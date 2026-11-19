@@ -1,42 +1,43 @@
 <div class="container">
     <h3>Ajout d'un jeu</h3>
-    <form>
+    <form [formRoot]="gameForm" (submit)="onSubmit()">
         <div>
             <label for="gameName">Nom</label>
-            <input type="text" id="gameName" >
+            <input type="text" id="gameName" class="form-control" [formField]="gameForm.name">
         </div>
         <div>
             <label for="gamePrice">Prix</label>
-            <input type="number" id="gamePrice" >
+            <input type="number" id="gamePrice" class="form-control" [formField]="gameForm.price">
         </div>
 
         <div>
             <label> Made In </label>
             <label>
-                <input type="radio" value="Tunisie" >Tunisie
+                <input type="radio" value="Tunisie" [formField]="gameForm.madeIn">Tunisie
             </label>
             <label>
-                <input type="radio" value="Autre" >Autre
+                <input type="radio" value="Autre" [formField]="gameForm.madeIn">Autre
             </label>
         </div>
         <div>
-            <label for="gameCategory">Catégorie</label>
-            <select id="gameCategory" >
-
-
-            </select>
+            <label for="category">Catégorie</label>
+<select id="category" class="form-select" [formField]="gameForm.category">
+  @for (cat of categories; track cat) {
+    <option [value]="cat">{{ cat }}</option>
+  }
+</select>
         </div>
         <div>
             <label for="gameIsNew">
-                <input type="checkbox" id="gameIsNew" > Nouveau
+                <input type="checkbox" id="gameIsNew" [formField]="gameForm.isNew"> Nouveau
             </label>
         </div>
 
-        <div>
-            <input type="submit" class="btn btn-success" value="Ajouter">
-            <input type="reset" class="btn btn-warning"  value="Effacer">
-        </div>
+       <div>
+           <input type="submit" class="btn btn-success" value="Ajouter">
+           <button type="button" class="btn btn-warning" (click)="resetForm()">Effacer</button>
+      </div>
     </form>
+    <div>{{ games() | json }}</div>
 
 </div>
-

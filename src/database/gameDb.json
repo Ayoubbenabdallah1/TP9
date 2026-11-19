@@ -11,6 +11,34 @@
         "Tunis",
         "Sousse"
       ]
+    },
+    {
+      "name": "gta",
+      "price": 20,
+      "madeIn": "Tunisie",
+      "category": "Jeux de société",
+      "isNew": true,
+      "shops": [],
+      "id": "ZPMBI90nunU"
+    },
+    {
+      "name": "rdr2",
+      "price": 100,
+      "madeIn": "Autre",
+      "category": "Jeux de société",
+      "isNew": false,
+      "shops": [],
+      "id": "zVn1BUqlPK0"
+    },
+    {
+      "name": "",
+      "price": 0,
+      "madeIn": "Tunisie",
+      "category": "Puzzle",
+      "isNew": true,
+      "shops": [],
+      "id": "iw1n71RTUZM"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
