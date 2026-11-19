@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { form, FormField, FormRoot } from '@angular/forms/signals';
+import { form, FormField, FormRoot, required, pattern, min } from '@angular/forms/signals';
 import { Category } from '../../models/category'; 
 import { Game } from '../../models/game';
 import { GameService } from '../../services/game-service'; 
@@ -11,10 +11,11 @@ import { GameService } from '../../services/game-service';
   templateUrl: './game-add.html',
   styleUrl: './game-add.css',
 })
-export class GameAdd {
+export class GameAdd implements OnInit  {
+
    private gameService = inject(GameService);
   categories = Object.values(Category);
-   games = signal<Game[]>([]);
+     games = this.gameService.games; 
 
   readonly gameModel = signal<Game>({
     id: '',
@@ -26,22 +27,20 @@ export class GameAdd {
     shops: [],
   });
 
-  readonly gameForm = form(this.gameModel);
-  
-  ngOnInit() {
-    this.loadGames();
+  readonly gameForm = form(this.gameModel, path => {
+  required(path.name, { message: 'Nom obligatoire' });
+  pattern(path.name, /^[A-Z].+$/, { message: 'Le nom doit commencer par une majuscule' });
+  required(path.price, { message: 'Le prix est obligatoire' });
+  min(path.price, 0.1, { message: 'Le prix doit être supérieur à 0.1 DT' });
+});
+   ngOnInit() {
+    this.gameService.getGames().subscribe(); 
   }
-
-  loadGames() {
-    this.gameService.getGames().subscribe(list => this.games.set(list));
-  }
-
   onSubmit() {
-    const { id, ...newGame } = this.gameModel(); 
-    this.gameService.addGame(newGame).subscribe(() => this.loadGames());
-    this.resetForm();
+    this.gameService.addGame(this.gameModel()).subscribe(() => this.resetForm());
   }
   resetForm() {
+    this.gameForm().reset();
     this.gameModel.set({
       id: '',
       name: '',

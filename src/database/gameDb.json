@@ -38,6 +38,15 @@
       "isNew": true,
       "shops": [],
       "id": "iw1n71RTUZM"
+    },
+    {
+      "id": "9b6pNDOcwrU",
+      "name": "rdr2",
+      "price": 1000,
+      "madeIn": "Tunisie",
+      "category": "Jeux de cartes",
+      "isNew": true,
+      "shops": []
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
